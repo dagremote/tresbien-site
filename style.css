@@ -1,0 +1,148 @@
+/* what2no.ca — rebuilt in the look of NEWSUP, the theme this site already runs.
+   Palette + type taken from the theme's own files in the UpdraftPlus backup
+   (themes/newsup/css/colors/default.css, style.css). Newsup is GPLv3, so adapting
+   its design is expressly permitted. This is original CSS written for our
+   WordPress-Gutenberg markup — not a copy of their Bootstrap stylesheet.
+     #202f5b navbar navy | #1151d3 "Top Bar"/accent blue | #f0f0f0 page grey
+     #222 text | Montserrat (headings) + Work Sans (body) */
+:root{
+  --bg:#eeeeee; --card:#ffffff; --fg:#222222; --muted:#777777; --line:#e4e4e4;
+  --navy:#202f5b; --accent:#1151d3; --accent-fg:#ffffff; --maxw:1600px;
+  --head:"Montserrat",-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  --sans:"Work Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root{ --bg:#12151c; --card:#1a1f2b; --fg:#e6e9f0; --muted:#98a0b0;
+         --line:#2a3142; --navy:#151c33; --accent:#5b8cf5; --accent-fg:#0f1218; }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);
+  font:16px/1.7 var(--sans);}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 20px}
+a{color:var(--accent)}
+.skip{position:absolute;left:-9999px}
+.skip:focus{left:8px;top:8px;background:var(--accent);color:var(--accent-fg);padding:8px;z-index:99}
+
+/* top bar — Newsup: date/time left, social right */
+.topbar{background:var(--navy);color:rgba(255,255,255,.8);font-size:.74rem}
+.topbar-inner{display:flex;align-items:center;justify-content:space-between;
+  padding:7px 0;gap:12px}
+.clock{font-variant-numeric:tabular-nums}
+.social{display:flex;gap:6px}
+.social a{color:#fff;background:rgba(255,255,255,.14);width:26px;height:26px;
+  display:inline-flex;align-items:center;justify-content:center;border-radius:2px}
+.social a:hover{background:var(--accent)}
+
+/* hero — the Jeep header image with logo + title overlaid */
+.site-header{background:var(--navy) center/cover no-repeat;position:relative}
+.site-header::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(90deg,rgba(15,20,40,.82) 0%,rgba(15,20,40,.35) 55%,rgba(15,20,40,.1) 100%)}
+.hero-inner{position:relative;z-index:2;padding:26px 0 30px;min-height:150px}
+.logo{display:block;margin:0 0 8px;height:auto}
+.site-title{font-family:var(--head);font-weight:700;font-size:2rem;text-decoration:none;
+  color:#fff;letter-spacing:-.01em;display:inline-block;text-shadow:0 2px 8px rgba(0,0,0,.5)}
+.tagline{margin:3px 0 0;color:rgba(255,255,255,.9);font-size:.85rem;
+  text-shadow:0 1px 5px rgba(0,0,0,.6)}
+
+/* nav bar — its own full-width navy strip under the hero */
+.navbar{background:var(--navy);position:sticky;top:0;z-index:20;
+  box-shadow:0 2px 8px rgba(0,0,0,.25)}
+.navbar-inner{display:flex;align-items:center;gap:0}
+.home-btn{background:var(--accent);color:#fff;width:44px;height:44px;
+  display:inline-flex;align-items:center;justify-content:center;flex:none}
+.home-btn:hover{filter:brightness(1.15)}
+.site-nav{flex:1;min-width:0}
+.nav-list{list-style:none;display:flex;flex-wrap:wrap;gap:0;margin:0;padding:0}
+.nav-list>li{position:relative}
+.nav-list a,.nav-list .group{color:rgba(255,255,255,.88);text-decoration:none;
+  font-size:.78rem;padding:14px 14px;display:inline-block;cursor:pointer;
+  font-weight:600;letter-spacing:.05em;text-transform:uppercase;font-family:var(--head)}
+.nav-list>li>a:hover,.nav-list .has-sub:hover>.group{color:#fff;background:var(--accent)}
+/* Caret drawn with CSS borders -- never a unicode escape (this CSS lives in a
+   Python string, where backslash-25 is an OCTAL escape). */
+.nav-list .has-sub>.group::after{content:"";display:inline-block;margin-left:7px;
+  vertical-align:middle;border-left:4px solid transparent;
+  border-right:4px solid transparent;border-top:5px solid currentColor;opacity:.75}
+.nav-list .sub{list-style:none;margin:0;padding:4px 0;position:absolute;top:100%;left:0;
+  min-width:250px;background:var(--card);border-top:3px solid var(--accent);
+  box-shadow:0 10px 26px rgba(0,0,0,.25);display:none;z-index:30}
+.nav-list .has-sub:hover>.sub,.nav-list .has-sub:focus-within>.sub{display:block}
+.nav-list .sub li{display:block}
+.nav-list .sub a{display:block;padding:9px 16px;font-size:.82rem;font-weight:400;
+  text-transform:none;letter-spacing:0;color:var(--fg);font-family:var(--sans)}
+.nav-list .sub a:hover{background:var(--bg);color:var(--accent)}
+.navtoggle,.navbtn{display:none}
+
+/* content */
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:26px;
+  padding:26px 0 50px;align-items:start}
+main{min-width:0}
+/* sidebar — Newsup: blue tab header over a card */
+.sidebar{display:flex;flex-direction:column;gap:22px}
+.widget{background:var(--card);border:1px solid var(--line)}
+.widget-title{margin:0;background:var(--accent);color:#fff;font-family:var(--head);
+  font-size:.78rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+  padding:9px 14px;display:inline-block;position:relative;top:-1px;left:-1px}
+.widget-body{padding:6px 16px 16px;font-size:.9rem}
+.widget-body ul{margin:.4em 0;padding-left:1.1em}
+.widget-body li{margin:.45em 0}
+.widget-body p{margin:.7em 0}
+@media (max-width:900px){ .layout{grid-template-columns:1fr} }
+.page{background:var(--card);padding:34px 38px 42px;border:1px solid var(--line);
+  font-size:1rem}
+.page-title{font-family:var(--head);font-size:1.75rem;line-height:1.3;font-weight:700;
+  margin:0 0 6px;color:var(--fg)}
+.page-title::after{content:"";display:block;width:100%;height:1px;background:var(--line);
+  margin:18px 0 26px}
+.page h2{font-family:var(--head);font-size:1.3rem;font-weight:700;margin:1.9em 0 .5em}
+.page h3{font-family:var(--head);font-size:1.08rem;font-weight:600;margin:1.6em 0 .4em}
+.page p{margin:0 0 1.1em}
+a{color:var(--accent)}
+img{max-width:100%;height:auto}
+
+/* WP block shims (blocks actually used: image, list, separator, table, heading, button) */
+.wp-block-image{margin:2em 0}
+.wp-block-image img{border-radius:0;display:block}
+.wp-block-image figcaption,.wp-element-caption{color:var(--muted);font-size:.8rem;
+  text-align:center;margin-top:.6em}
+figure{margin:1.6em 0}
+.wp-block-list{margin:0 0 1.1em;padding-left:1.3em}
+.wp-block-list li{margin:.3em 0}
+.wp-block-separator{border:0;border-top:1px solid var(--line);margin:2.2em 0}
+.wp-block-table{overflow-x:auto;margin:1.6em 0}
+.wp-block-table table{border-collapse:collapse;width:100%;font-size:.92rem}
+.wp-block-table td,.wp-block-table th{border:1px solid var(--line);padding:8px 10px;text-align:left}
+.wp-block-table th{background:var(--bg)}
+.wp-block-button__link{display:inline-block;background:var(--accent);color:var(--accent-fg);
+  padding:11px 22px;border-radius:0;text-decoration:none;font-size:.78rem;
+  letter-spacing:.06em;text-transform:uppercase;font-weight:500}
+.wp-block-button__link:hover{opacity:.85}
+.wp-block-buttons{display:flex;gap:10px;flex-wrap:wrap;margin:1.4em 0}
+blockquote{border-left:3px solid var(--accent);margin:1.6em 0;padding:.2em 0 .2em 1em;color:var(--muted)}
+code,pre{background:var(--card);border-radius:4px}
+code{padding:.15em .35em;font-size:.9em}
+pre{padding:12px;overflow-x:auto}
+
+/* footer */
+.site-footer{background:var(--navy);padding:20px 0;color:rgba(255,255,255,.7);font-size:.82rem}
+.site-footer a{color:#fff}
+
+/* mobile nav */
+@media (max-width:640px){
+  .navbtn{display:block;width:44px;height:44px;border:0;cursor:pointer;position:relative;margin-left:auto}
+  .navbtn span,.navbtn span::before,.navbtn span::after{content:"";position:absolute;left:7px;
+    width:18px;height:2px;background:#fff}
+  .navbtn span{top:14px}
+  .navbtn span::before{top:-6px}
+  .navbtn span::after{top:6px}
+  .navbar-inner{flex-wrap:wrap}
+  .site-nav{display:none;width:100%;flex-basis:100%}
+  .navtoggle:checked ~ .site-nav{display:block}
+  .nav-list{flex-direction:column;gap:0}
+  .nav-list>li{border-top:1px solid rgba(255,255,255,.12)}
+  /* on mobile: no hover — show sub-menus inline, always expanded */
+  .nav-list .sub{position:static;display:block;border:0;box-shadow:none;
+    background:transparent;min-width:0;padding:0 0 6px 12px}
+  .nav-list .sub a{padding:5px 0}
+}
